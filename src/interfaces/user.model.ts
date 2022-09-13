@@ -1,4 +1,4 @@
-interface Smith {
+interface IUser {
   id?: number;
   username: string,
   classe: string,
@@ -6,4 +6,4 @@ interface Smith {
   password: string
 }
 
-export default Smith;
+export default IUser;
