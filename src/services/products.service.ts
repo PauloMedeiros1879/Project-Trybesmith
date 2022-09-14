@@ -1,4 +1,4 @@
-import { IProduct } from '../interfaces/products.interface';
+import { IProduct, INewProduct } from '../interfaces/products.interface';
 import ProductModel from '../models/products.model';
 
 class ProductService {
@@ -12,6 +12,12 @@ class ProductService {
     const product: IProduct[] = await this.model.getAll();
 
     return product;
+  }
+
+  public async create(product: INewProduct) {
+    const createdProduct: IProduct = await this.model.create(product);
+
+    return createdProduct;
   }
 }
 
