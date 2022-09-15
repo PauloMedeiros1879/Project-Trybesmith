@@ -1,5 +1,6 @@
 import OrderModel from '../models/orders.model';
-import { IOrder } from '../interfaces/orders.interface';
+import ProductModel from '../models/products.model';
+import { IOrder, INewOrder } from '../interfaces/orders.interface';
 import regularOrders from '../helpers/regularOrders';
 
 class OrdersService {
@@ -14,6 +15,20 @@ class OrdersService {
     const regOrders = regularOrders(orders);
 
     return regOrders;
+  }
+
+  public async create(productsIds: number[], userId: number): Promise<INewOrder> {
+    const { id } = await this.model.create(userId);
+    const productModel = new ProductModel();
+    const upPromises = productsIds
+      .map((productId) => productModel.update(productId, id));
+
+    await Promise.all(upPromises);
+
+    return {
+      userId,
+      productsIds,
+    };
   }
 }
 
