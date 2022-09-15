@@ -1,7 +1,19 @@
-export interface INewOrders {
+export interface IProductsOrder {
+  productsIds: number[];
+}
+
+export interface IUserOrder {
   userId: number;
 }
-export interface IOrders extends INewOrders {
+
+export interface INewOrder extends IProductsOrder, IUserOrder {}
+
+export interface IBaseOrder extends IUserOrder {
   id: number;
-  productsIds?: number;
 }
+
+export interface IOrders extends IBaseOrder {
+  productId: number;
+}
+
+export interface IOrder extends IBaseOrder, IProductsOrder {}

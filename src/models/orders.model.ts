@@ -10,7 +10,11 @@ class OrdersModel {
   }
 
   public async getAll(): Promise<IOrders[]> {
-    const query = 'SELECT * FROM Trybesmith.Orders';
+    const query = `
+      SELECT ord.id, ord.userId, p.id AS productId
+      FROM Trybesmith.Orders AS ord
+      INNER JOIN Trybesmith.Products AS p ON p.orderId = ord.id
+    `;
     const [orders] = await this.connection.execute(query);
 
     return orders as IOrders[];
