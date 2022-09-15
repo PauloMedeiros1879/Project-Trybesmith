@@ -1,17 +1,19 @@
-import OrdersModel from '../models/orders.model';
-import { IOrders } from '../interfaces/orders.interface';
+import OrderModel from '../models/orders.model';
+import { IOrder } from '../interfaces/orders.interface';
+import regularOrders from '../helpers/regularOrders';
 
 class OrdersService {
-  private model: OrdersModel;
+  private model: OrderModel;
 
   constructor() {
-    this.model = new OrdersModel();
+    this.model = new OrderModel();
   }
 
-  public async getAll(): Promise<IOrders[]> {
-    const orders: IOrders[] = await this.model.getAll();
+  public async getAll(): Promise<IOrder[]> {
+    const orders = await this.model.getAll();
+    const regOrders = regularOrders(orders);
 
-    return orders;
+    return regOrders;
   }
 }
 
